@@ -37,9 +37,9 @@ public class UnitTest5 {
 		}
 		int lastChunkSize = (int) (fin.length() % ChunkServer.ChunkSize);
 		// create and write chunk(s) of the file
-		Client client = new Client();
 		TestReadAndWrite trw = new TestReadAndWrite();
 		MyChunks = trw.createFile(fin);
+		Client client = new Client(5963, "localhost");
 		File fout = new File(outputFile);
 		FileOutputStream output = new FileOutputStream(fout);
 		for(int i = 0; i < MyChunks.length; i++){

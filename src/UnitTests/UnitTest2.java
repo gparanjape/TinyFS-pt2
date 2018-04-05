@@ -35,7 +35,8 @@ public class UnitTest2 {
             	}
             }
         }
-        System.out.println("Unit test 2 result: success!");   
+        System.out.println("Unit test 2 result: success!");  
+        client.close();
 
 	}
 
