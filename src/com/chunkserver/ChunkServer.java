@@ -105,18 +105,11 @@ public class ChunkServer implements ChunkServerInterface {
 	public static void ReadAndWrite(){
 		System.out.println("check 0");
 		//ServerSocket ss = null;
-		Socket clientConnect = null;
+		//Socket clientConnect = null;
 		while(true)
 		{
+			Socket clientConnect = null;
 			System.out.println("check 1");
-//			try {
-//				ss = new ServerSocket(5963);
-//				System.out.println("waiting for connection");
-//				System.out.println("check 2");
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
 			try {
 				System.out.println("check 0000");
 				DataInputStream dis;
@@ -135,7 +128,7 @@ public class ChunkServer implements ChunkServerInterface {
 					if(cmd == 102) {//putchunk
 						System.out.println("check 5");
 						int payloadSize = dis.readInt();
-						System.out.println("payload size:" + payloadSize);
+						System.out.println("payload size: " + payloadSize);
 						System.out.println("check 5.5");
 						byte[] payload = null;
 						payload = new byte[payloadSize];
@@ -149,14 +142,16 @@ public class ChunkServer implements ChunkServerInterface {
 						System.out.println("check 8");
 						String chunkHandle = new String(chunkHandleBytes);
 						int offset = dis.readInt();
-						System.out.println("check 8");
+						System.out.println("check 8.5");
 						boolean pass = cs.putChunk(chunkHandle, payload, offset);
+						System.out.println("put: cmd is: " + cmd);
 						if(pass == true) {
 							dos.flush();
 							System.out.println("check 9");
 							dos.writeInt(1);
 							System.out.println("check 10");
 							dos.flush();
+							System.out.println("check 10.5");
 						}
 						else {
 							System.out.println("check 11");
@@ -166,9 +161,13 @@ public class ChunkServer implements ChunkServerInterface {
 						}
 					}
 					else if(cmd == 103) {//getchunk
+						System.out.println("get:check 0");
+						System.out.println("get: cmd is: " + cmd);
 						int handleLength = dis.readInt();
+						System.out.println("get: check 1");
 						byte[] chunkHandleBytes = new byte[handleLength];
 						dis.read(chunkHandleBytes, 0, handleLength);
+						System.out.println("get: check 2");
 						String chunkHandle = new String(chunkHandleBytes);
 						
 						int offset = dis.readInt();
@@ -182,7 +181,6 @@ public class ChunkServer implements ChunkServerInterface {
 						dos.write(pl);
 						dos.flush();
 					}
-					
 					else if(cmd == 101){//initializechunk
 						String chunkVal = cs.initializeChunk();
 						byte[] chunkValAsByteArray = chunkVal.getBytes();
@@ -192,19 +190,23 @@ public class ChunkServer implements ChunkServerInterface {
 						dos.write(chunkValAsByteArray);
 						dos.flush();
 					}
-					
 				}
 			} 
-			catch(EOFException eofe) {
-				System.out.println("EOF Error in server");
-				eofe.printStackTrace();
-				//break;
-			}
 			catch (IOException e) {
-				e.printStackTrace();
-				//break;
+				//System.out.println("HIT AN EXCEPTION IN SERVER");
+				//e.printStackTrace();
+				break;
 			}
-			break;
+//			finally {
+//					if(clientConnect!=null) {
+//						try {
+//							clientConnect.close();
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//
+//			}
 		}
 		System.out.println("dooooone");
 		

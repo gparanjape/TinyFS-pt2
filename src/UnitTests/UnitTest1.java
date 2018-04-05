@@ -55,10 +55,10 @@ public class UnitTest1 {
         isSuccess = client.putChunk(handle, payload, 0);
         if(isSuccess == true){
         	System.out.println("Unit test 1 result: success!");
-        	//client.close();
+        	client.close();
         }else{
         	System.out.println("Unit test 1 result: fail!");
-        	//client.close();
+        	client.close();
         }
 	}
 

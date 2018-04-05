@@ -45,8 +45,6 @@ public class Client implements ClientInterface {
 	 * Create a chunk at the chunk server from the client side.
 	 */
 	public String initializeChunk() {
-		//return cs.initializeChunk();
-		//want to send the command of what to do
 		String chunkHandle = "";
 		try {
 			System.out.println("init 0");
