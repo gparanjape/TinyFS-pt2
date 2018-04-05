@@ -1,5 +1,7 @@
 package UnitTests;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 import com.chunkserver.ChunkServer;
@@ -34,7 +36,17 @@ public class UnitTest1 {
         }
         boolean isSuccess = false;
         //Create the chunk and store its handle
-        Client client = new Client();
+        Client client = new Client(5963, "localhost");
+        /*
+        byte[] ipAddr = new byte[] { 10, 123, (byte) 170, 31 };
+        InetAddress addr = null;
+		try {
+			addr = InetAddress.getByAddress(ipAddr);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Client client = new Client(5963, addr);*/
         handle = client.initializeChunk();
         if(handle == null){
         	System.out.println("Unit test 1 result: fail!");
@@ -43,8 +55,10 @@ public class UnitTest1 {
         isSuccess = client.putChunk(handle, payload, 0);
         if(isSuccess == true){
         	System.out.println("Unit test 1 result: success!");
+        	//client.close();
         }else{
         	System.out.println("Unit test 1 result: fail!");
+        	//client.close();
         }
 	}
 

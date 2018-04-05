@@ -20,7 +20,7 @@ public class UnitTest2 {
 	public static void main(String[] args) {
 		UnitTest1 ut1 = new UnitTest1();
 		ut1.test1();
-		Client client = new Client();
+		Client client = new Client(5963, "localhost");
 		String handle = ut1.handle;
 		byte[] ValInBytes = ByteBuffer.allocate(4).putInt(1).array();
 		byte[] data = new byte[ChunkServer.ChunkSize];

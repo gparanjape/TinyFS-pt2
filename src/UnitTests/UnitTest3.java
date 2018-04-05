@@ -26,7 +26,7 @@ public class UnitTest3 {
     public static void main(String[] args) {
         String ChunkHandle;
         
-        Client client = new Client();
+        Client client = new Client(5963, "localhost");
         //Write the chunk and the byte array
         int intSize = Integer.SIZE / Byte.SIZE;	// 4 bytes
 		int num = ChunkServer.ChunkSize / intSize;	//1024 integers
